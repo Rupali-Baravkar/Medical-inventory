@@ -13,6 +13,20 @@
     "hbs": "^4.2.0",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "mysql": "^2.18.1",
     "nodemon": "^2.0.15"
-  }
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rupali-Baravkar/Medical-inventory.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rupali-Baravkar/Medical-inventory/issues"
+  },
+  "homepage": "https://github.com/Rupali-Baravkar/Medical-inventory#readme",
+  "description": ""
 }
