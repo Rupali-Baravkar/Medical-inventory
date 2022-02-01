@@ -1,0 +1,115 @@
+
+
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+  <!-- partial:partials/_sidebar.html -->
+  <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+      <li class="nav-item nav-category">Main</li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/">
+          <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
+          <span class="menu-title">Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/add-product">
+          <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+          <span class="menu-title">Add Product</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="pages/forms/basic_elements.html">
+          <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+          <span class="menu-title">Edit Product</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="pages/charts/chartjs.html">
+          <span class="icon-bg"><i class="mdi mdi-chart-bar menu-icon"></i></span>
+          <span class="menu-title">Order Details</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="pages/tables/basic-table.html">
+          <span class="icon-bg"><i class="mdi mdi-table-large menu-icon"></i></span>
+          <span class="menu-title">User Info</span>
+        </a>
+      </li>
+      {{!-- <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+          <span class="icon-bg"><i class="mdi mdi-lock menu-icon"></i></span>
+          <span class="menu-title">User Pages</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="auth">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+          </ul>
+        </div>
+      </li> --}}
+
+      
+      <li class="nav-item sidebar-user-actions mt-5">
+        <div class="sidebar-user-menu">
+          <a href="#" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
+            <span class="menu-title">Log Out</span></a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+
+  <!-- partial -->
+  <div class="main-panel">
+    <div class="content-wrapper">
+      <div class="d-xl-flex justify-content-between align-items-start">
+        <h2 class="text-dark font-weight-bold mb-2"> Overview dashboard </h2>
+        <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
+       {{!-- <a href="" class="btn btn-success"> Add Product</a> --}}
+        </div>
+      </div>
+      <div class="row">
+       
+        {{!-- admin pannels --}}
+
+<table class="table table-hover mt-3">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Image</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products as |product|}}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{this.name}}</td>
+      <td>{{this.description}}</td>
+      <td>{{this.price}}</td>
+      <td> <img src="{{this.image}}" style="width: 50px; height: 50px;" > </td>
+      <td>
+      <button class="btn btn-info">Edit</button>
+      <button class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+  </div>
+</div>

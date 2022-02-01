@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  // res.render('index', { title: 'Medical inventory' });
+
+
+
+
+router.get('/', function(req, res, next){
   let products = [
     {
       id: 1,
@@ -20,21 +21,12 @@ router.get('/', function(req, res, next) {
       description: "Antibiotics",
       image: "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
     },
-    {
-      id: 3,
-      name: 'Paracetamol',
-      price: 50,
-      description: "Antibiotics",
-      image: "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-    },
   ]
-  res.render('user/dashboard', {products: products});
+  res.render('admin/admindash', {admin: true, products: products});
+})
 
+router.get('/add-product', function(req, res, next){
+  res.render('admin/add-products', {admin: true});
 });
-
-router.get('/Login', function(req, res){
-  res.render('user/Login');
-});
-
 
 module.exports = router;
