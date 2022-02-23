@@ -4,13 +4,13 @@
         <div class="row">
 
 {{#each products as |product|}}
-            <div class="col-xl-3 col-lg-4 col-md-4  col-12">
-                <div class="card mt-5 border-info" style="width: 18rem;">
-                     <img class="card-img-top img-fluid" src="{{this.image}}" alt="Card image cap">
+            <div class="col-xl-3 col-lg-4 col-md-4  col-12 text-center">
+                <div class="card mt-5 border-info " style="width: 15rem; height: 24rem">
+                     <img class="card-img-top img-fluid" src="/images/{{this.pimage}}" alt="Card image cap" style="height: 8.5rem">
                     <div class="card-body ">
-                        <h5 class="card-title">{{this.name}}</h5>
-                        Description:<p class="card-text">{{this.description}}</p>
-                         Price:<h3 class="card-text">{{this.price}}</h3>
+                        <h5 class="card-title">{{this.pname}}</h5>
+                        Description:<p class="card-text">{{this.pdescription}}</p>
+                         Price:<h3 class="card-text">{{this.pprice}}</h3>
                     
                         <a href="checkout" class="btn btn-success">Buy Now</a>
                     </div>

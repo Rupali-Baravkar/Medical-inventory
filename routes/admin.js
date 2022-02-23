@@ -5,53 +5,87 @@ var router = express.Router();
 
 
 
-router.get('/', function(req, res, next){
-  let products = [
-    {
-      id: 1,
-      name: 'Nicip Plus Tablet',
-      price: 100,
-      description: "Antibiotics",
-      image: "https://cdn.slidesharecdn.com/ss_thumbnails/nicipplustablet-190826170348-thumbnail-4.jpg?cb=1566839123"
-    },
-    {
-      id: 2,
-      name: 'Cefakind-500',
-      price: 100,
-      description: "Antibiotics",
-      image: "https://newassets.apollo247.com/pub/media/catalog/product/c/e/cef0102.jpg"
-    },
+router.get('/', function (req, res, next) {
+  //taking data from database
+  function getProducts() {
+    return new Promise(function (resolve, reject) {
+      req.db.query('SELECT * FROM products', function (err, result) {
+        if (err) {
+          throw err;
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
+
+  getProducts().then(function (result) {
+    console.log(result);
+    res.render('admin/admindash', {
+      admin: true,
+      products: result,
+    });
+  }).catch(function (err) {
+    console.log(err);
+  });
+  // res.render('admin/admindash', {
+  //   admin: true,
+  //   products: products
+  // });
+});
 
 
-    {
-      id: 3,
-      name: 'Montal LC',
-      price: 100,
-      description: "Antibiotics",
-      image: "https://asset20.ckassets.com/blog/wp-content/uploads/sites/5/2018/07/8-8.jpg"
-    },
+router.get('/add-product', function (req, res, next) {
+  res.render('admin/add-products', {
+    admin: true
+  });
+});
 
-    {
-      id: 4,
-      name: 'Ecosprine 750mg',
-      price: 100,
-      description: "Antibiotics",
-      image: "https://asset20.ckassets.com/blog/wp-content/uploads/sites/5/2018/06/Ecosprin.jpg"
-    },
+// adding product
+router.post('/add-product', function (req, res, next) {
+  // console.log(req.body);
+  // console.log(req.files.pimage);
+  //function to insert product into database
+  function addProduct(product) {
+    return new Promise(function (resolve, reject) {
+      if (!req.files) {
+        console.log("No file uploaded");
+        return;
+      } else {
+        console.log(req.files.pimage);
+        let image = req.files.pimage;
+        let imageName = Date.now() + image.name;
+        image.mv('./public/images/' + imageName, function (err) {
+          if (err) {
+            console.log(err);
+          }
+        });
 
-    {
-      id: 5,
-      name: 'Cough Syrup',
-      price: 100,
-      description: "Herbion Naturals Cough Syrup with Stevia, Green, Sugar Free, 5.0 Fl Oz",
-      image: "https://m.media-amazon.com/images/I/51McQduO3cL._AC_.jpg"
-    },
-  ]
-  res.render('admin/admindash', {admin: true, products: products});
-})
+        product.pimage = imageName;
+        console.log(product);
 
-router.get('/add-product', function(req, res, next){
-  res.render('admin/add-products', {admin: true});
+        req.db.query('INSERT INTO products SET ?', product, function (err, result) {
+          if (err) throw err;
+          req.session.message={
+            type: 'success',
+            text: 'Product added successfully'
+          }
+          res.redirect('/admin/add-product');
+          resolve(result);
+         // console.log(result);
+        });
+
+      }
+
+    });
+  }
+
+  addProduct(req.body).then(function (result) {
+    console.log(result);
+  }).catch(function (err) {
+    console.log(err);
+  });
+  //res.redirect('/');
 });
 
 module.exports = router;

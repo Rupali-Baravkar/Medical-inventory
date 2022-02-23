@@ -4,13 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const handlebars = require('express-handlebars');
+var session = require('express-session');
 
-const mysql = require('mysql');
+// database
+var db = require('../Medical-inventory/Config/connection');
+
+//const mysql = require('mysql');
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 
 
 var app = express();
+
+//for fileUpload
+var fileUpload = require('express-fileupload');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +35,7 @@ var hbs = handlebars.create({
 app.engine( 'hbs', hbs.engine );
 
 
+//give mysql connection export
 
 
 //app.engine('hbs', hbs({}))
@@ -39,6 +47,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// create session
+app.use(session({
+  secret: 'secret',
+  cookie: { maxAge: 600000 },
+}));
+
+
+//flash message middleware
+app.use(function(req,res,next){ 
+  res.locals.message = req.session.message;
+  delete req.session.message;
+  next(); 
+});
+
+//for database
+app.use(function(req, res, next) {
+  req.db = db;
+  next();
+});
+
+//for file upload
+app.use(fileUpload());
 
 app.use('/admin', adminRouter);
 app.use('/', usersRouter);
@@ -49,43 +79,6 @@ app.use(function(req, res, next) {
 });
 
 
-
-
-// First you need to create a connection to the database
-// Be sure to replace 'user' and 'password' with the correct values
-const con = mysql.createConnection({
-  host: 'localhost',
-  port: 3306, 
-  database: 'demo',
-  user: 'root',
-  password: '123456789',
-});
-
-con.connect((err) => {
-  if(err){
-    console.log(err);
-    return;
-  }
-  console.log('Connection established');
-
-  
-});
-
-
-
-
-// con.query("SELECT * FROM demo.new", function (err, result, fields) {
-//   if (err){
-//       console.log(err);}
-//    else
-//       console.log(result);
-// });
-
-
-
-
-
-// con.end();
 
 // error handler
 app.use(function(err, req, res, next) {
