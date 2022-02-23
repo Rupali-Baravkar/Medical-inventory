@@ -9,17 +9,42 @@ router.get('/', function(req, res, next){
   let products = [
     {
       id: 1,
-      name: 'Dolo 600mg',
+      name: 'Nicip Plus Tablet',
       price: 100,
       description: "Antibiotics",
-      image: "https://medicaldawa.in/wp-content/uploads/2021/02/dolo-500.jpg"
+      image: "https://cdn.slidesharecdn.com/ss_thumbnails/nicipplustablet-190826170348-thumbnail-4.jpg?cb=1566839123"
     },
     {
       id: 2,
-      name: 'Dolo 600mg',
+      name: 'Cefakind-500',
       price: 100,
       description: "Antibiotics",
-      image: "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+      image: "https://newassets.apollo247.com/pub/media/catalog/product/c/e/cef0102.jpg"
+    },
+
+
+    {
+      id: 3,
+      name: 'Montal LC',
+      price: 100,
+      description: "Antibiotics",
+      image: "https://asset20.ckassets.com/blog/wp-content/uploads/sites/5/2018/07/8-8.jpg"
+    },
+
+    {
+      id: 4,
+      name: 'Ecosprine 750mg',
+      price: 100,
+      description: "Antibiotics",
+      image: "https://asset20.ckassets.com/blog/wp-content/uploads/sites/5/2018/06/Ecosprin.jpg"
+    },
+
+    {
+      id: 5,
+      name: 'Cough Syrup',
+      price: 100,
+      description: "Herbion Naturals Cough Syrup with Stevia, Green, Sugar Free, 5.0 Fl Oz",
+      image: "https://m.media-amazon.com/images/I/51McQduO3cL._AC_.jpg"
     },
   ]
   res.render('admin/admindash', {admin: true, products: products});

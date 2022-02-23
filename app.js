@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const handlebars = require('express-handlebars');
 
+const mysql = require('mysql');
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 
@@ -46,6 +47,45 @@ app.use('/', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
+
+
+// First you need to create a connection to the database
+// Be sure to replace 'user' and 'password' with the correct values
+const con = mysql.createConnection({
+  host: 'localhost',
+  port: 3306, 
+  database: 'demo',
+  user: 'root',
+  password: '123456789',
+});
+
+con.connect((err) => {
+  if(err){
+    console.log(err);
+    return;
+  }
+  console.log('Connection established');
+
+  
+});
+
+
+
+
+// con.query("SELECT * FROM demo.new", function (err, result, fields) {
+//   if (err){
+//       console.log(err);}
+//    else
+//       console.log(result);
+// });
+
+
+
+
+
+// con.end();
 
 // error handler
 app.use(function(err, req, res, next) {

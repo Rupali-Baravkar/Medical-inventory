@@ -1,13 +1,25 @@
 <div class="login-body">
+{{!-- 
+{{#if message}}
+<div class="text-center alert alert-dismissible alert-{{message.type}}" style="position: absolute; margin-left: 65%; top: 5rem;">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>{{message.intro}}</strong> {{message.text}} 
+</div>
+{{/if}} --}}
 
-
+{{#if message}}
+<div class="text-center  alert alert-dismissible alert-success" style="position: absolute; margin-left: 65%; top: 5rem;">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>  </strong> User Registration Successfull.
+</div>
+{{/if}}
 <div class="main1">  	
 		<input class="login-input" type="checkbox" id="chk" aria-hidden="true">
 
 			<div class="signup">
-				<form>
+				<form action= "/Login" method="post">
 					<label class="login-label" for="chk" aria-hidden="true">Sign up</label>
-					<input class="login-input" type="text" name="txt" placeholder="User name" required="">
+					<input class="login-input" type="text" name="user" placeholder="User name" required="">
 					<input class="login-input" type="email" name="email" placeholder="Email" required="">
 					<input class="login-input" type="password" name="pswd" placeholder="Password" required="">
 					<button class="login-button"> Sign up</button>
