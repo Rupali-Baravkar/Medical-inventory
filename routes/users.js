@@ -1,3 +1,4 @@
+const { response } = require('express');
 var express = require('express');
 //const { response } = require('../app');
 var router = express.Router();
@@ -54,6 +55,10 @@ router.get('/Login', function(req, res){
 });
 
 router.post('/Login', function(req, res){
+ 
+
+
+  
   console.log(req.body)
   //insert data into database 
   // let response ={}
@@ -67,10 +72,12 @@ router.post('/Login', function(req, res){
   // // });
   // });
   // res.redirect('/');
-
+  
   function userRegister(userData){
     return new Promise(function(resolve, reject){
       //let response={}
+      console.log(userData)
+      
       req.db.query('INSERT INTO user SET ?', userData, function(err, result){
         if(err){
           throw err;
@@ -82,10 +89,12 @@ router.post('/Login', function(req, res){
           }
           res.redirect('/Login');
           //console.log(req.session.message);
+          console.log(result)
           resolve(result);
         }
       
       });
+    
     });
   }
 
@@ -97,7 +106,7 @@ router.post('/Login', function(req, res){
    console.log(err);
   });
 
-  
+
 });
 
 router.post('/userLogin', function(req, res){
@@ -106,6 +115,32 @@ router.post('/userLogin', function(req, res){
   function doLogin(userData){
     return new Promise(function(resolve, reject){
       let response={}
+      if(userData.email=='admin@gmail.com' && userData.password=='admin')
+      {
+        function getProducts() {
+          return new Promise(function (resolve, reject) {
+            req.db.query('SELECT * FROM products', function (err, result) {
+              if (err) {
+                throw err;
+              } else {
+                resolve(result);
+              }
+            });
+          });
+        }
+      
+        getProducts().then(function (result) {
+          console.log(result);
+          res.render('admin/admindash', {
+            admin: true,
+            products: result,
+          });
+        }).catch(function (err) {
+          console.log(err);
+        });
+      }
+      else
+      {
       req.db.query('SELECT * FROM user WHERE email = ? AND password = ?', [userData.email, userData.password], function(err, result){
         //console.log("user : " +user);
         if(result.length > 0){
@@ -126,6 +161,7 @@ router.post('/userLogin', function(req, res){
         // console.log(response);
         // resolve(response);
       });
+    }
     });
   }
 

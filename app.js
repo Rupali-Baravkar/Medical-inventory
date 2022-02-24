@@ -7,7 +7,7 @@ const handlebars = require('express-handlebars');
 var session = require('express-session');
 
 // database
-var db = require('../Medical-inventory/Config/connection');
+var db = require('./Config/connection');
 
 //const mysql = require('mysql');
 var adminRouter = require('./routes/admin');
