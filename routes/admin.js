@@ -222,5 +222,7 @@ router.get('/order-details', function (req, res, next) {
   });
 });
 
-
+router.get('/adminlogout', function(req, res){
+  res.redirect('/')
+})
 module.exports = router;

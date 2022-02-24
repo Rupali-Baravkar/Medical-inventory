@@ -198,4 +198,9 @@ router.get('/checkout', function(req, res){
 router.get('/paymentsu', function(req, res){
   res.render('user/paymentsu');
 });
+
+//add to cart
+router.get('/addtocart', (req, res)=>{
+  res.render('user/addtocart');
+})
 module.exports = router;
