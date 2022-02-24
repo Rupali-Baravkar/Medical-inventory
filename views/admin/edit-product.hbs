@@ -71,17 +71,17 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             <strong> </strong> User Registration Successfull.
         </div> --}}
-        {{#if message}}
+        {{!-- {{#if message}}
         <div class="text-center alert alert-dismissible alert-{{message.type}}"
             style="position: absolute; margin-left: 55%; top: 5rem;">
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             <strong></strong> {{message.text}}
         </div>
-        {{/if}}
+        {{/if}} --}}
 
         <div class="content-wrapper">
             <div class="d-xl-flex justify-content-between align-items-start">
-                <h2 class="text-dark font-weight-bold mb-2"> Add Product </h2>
+                <h2 class="text-dark font-weight-bold mb-2"> Edit Product </h2>
                 <div class="d-sm-flex justify-content-xl-between align-items-center mb-2">
 
                 </div>
@@ -90,31 +90,32 @@
 
                 {{!-- admin pannels --}}
 
-                <form method="post" action="/admin/add-product" enctype="multipart/form-data">
+                <form method="post" action="/admin/edit-product/{{product.pid}}" enctype="multipart/form-data">
                     <div class="form-group mt-2">
                         <label>Product Name</label>
-                        <input type="text" class="form-control" name="pname" id="" placeholder="Add Product Name">
+                        <input type="text" class="form-control" name="pname" id="" value="{{product.pname}}">
                     </div>
                     <div class="form-group ">
                         <label>Product Description</label>
-                        <input type="text" class="form-control" name="pdescription" id=""
-                            placeholder="Add Product Description">
+                        <input type="text" class="form-control" name="pdescription" id="" value="{{product.pdescription}}">
                     </div>
                     <div class="form-group">
                         <label>Product Price</label>
-                        <input type="text" class="form-control" name="pprice" id="" placeholder="Add Product Price">
+                        <input type="text" class="form-control" name="pprice" id="" value="{{product.pprice}}">
                     </div>
                     <div class="form-group">
                         <label>Product Quantity</label>
-                        <input type="text" class="form-control" name="pquantity" id="" placeholder="Add Quantity">
+                        <input type="text" class="form-control" name="pquantity" id="" value="{{product.pquantity}}" >
                     </div>
                     <div class="form-group">
-                        <label>Product file input</label>
+                        <label>Image </label>
+                        {{!-- <br> --}}
+                        <img src="/images/{{product.pimage}}" alt="" width="100px" height="100px">
                         <br>
-                        <input type="file" class="form-control-file" name="pimage" id="">
+                        <input type="file" class="form-control" name="pimage" id="" value="{{product.pimage}}">
                     </div>
 
-                    <button type="submit" class="btn btn-success">Add Product</button>
+                    <button type="submit" class="btn btn-success">Edit Product</button>
                 </form>
 
 
