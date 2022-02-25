@@ -191,9 +191,63 @@ router.get('/Logout', function(req, res){
 });
 
 router.get('/checkout', function(req, res){
-  res.render('user/checkout');
+  //check for user session
+  
+  let user = req.session.user;
+  console.log(user);
+  if(req.session.loggedIn){
+    res.render('user/checkout', {userData: user});
+  }else{
+    res.redirect('/Login');
+  }
 });
 
+router.post('/addto-cart', function(req, res){
+  //insert data into database
+  console.log(req.body);
+
+  //check for user session
+  let user = req.session.user;
+  if(req.session.loggedIn){
+
+  //insert data into database
+  function insertOrder(orderData, userData){
+    return new Promise(function(resolve, reject){
+      let response={}
+      let query = 'INSERT INTO orders (orderid, totalamount, userid) VALUES (?, ?, ?)';
+      req.db.query(query, [orderData.orderId, orderData.totalPrice, userData.id ], function(err, result){
+        if(err){
+          throw err;
+        }else{
+          response.status = "success";
+          response.message = "Order placed successfully";
+          console.log(response);
+          resolve(response);
+        }
+      
+      });
+    
+    });
+  }
+
+  insertOrder(req.body, user).then(function(response){
+    //res.json(response);
+   console.log(response);
+   req.session.message = {
+    type: 'success',
+    text: response.message
+  }
+  res.redirect('/checkout');
+  }
+  ).catch(function(err){
+    console.log(err);
+  });
+
+  }else{
+    res.redirect('/Login');
+  }
+    
+});
 
 router.get('/paymentsu', function(req, res){
   res.render('user/paymentsu');

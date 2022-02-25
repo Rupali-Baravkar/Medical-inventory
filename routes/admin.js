@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
   }
 
   getProducts().then(function (result) {
-   // console.log(result);
+    // console.log(result);
     res.render('admin/admindash', {
       admin: true,
       products: result,
@@ -62,17 +62,17 @@ router.post('/add-product', function (req, res, next) {
         });
 
         product.pimage = imageName;
-       // console.log(product);
+        // console.log(product);
 
         req.db.query('INSERT INTO products SET ?', product, function (err, result) {
           if (err) throw err;
-          req.session.message={
+          req.session.message = {
             type: 'success',
             text: 'Product added successfully'
           }
           res.redirect('/admin/add-product');
           resolve(result);
-         // console.log(result);
+          // console.log(result);
         });
 
       }
@@ -91,6 +91,7 @@ router.post('/add-product', function (req, res, next) {
 //edit produt page display
 router.get('/edit-product/:id', function (req, res, next) {
   let ProductId = req.params.id;
+
   function getProduct() {
     return new Promise(function (resolve, reject) {
       req.db.query('SELECT * FROM products WHERE pid = ?', ProductId, function (err, result) {
@@ -103,17 +104,17 @@ router.get('/edit-product/:id', function (req, res, next) {
     });
   }
 
-  var product = getProduct(ProductId).then(function(result){
+  var product = getProduct(ProductId).then(function (result) {
     console.log(result);
     res.render('admin/edit-product', {
       admin: true,
       product: result[0]
     });
-  }).catch((err)=>{
+  }).catch((err) => {
     console.log(err);
   });
-    
- 
+
+
 });
 
 //update product
@@ -123,7 +124,7 @@ router.post('/edit-product/:id', function (req, res, next) {
   function updateProduct(product, ProductId) {
     return new Promise(function (resolve, reject) {
       if (req.files) {
-       
+
         console.log(req.files.pimage);
         let image = req.files.pimage;
         let imageName = Date.now() + image.name;
@@ -135,15 +136,15 @@ router.post('/edit-product/:id', function (req, res, next) {
         product.pimage = imageName;
       }
 
-        req.db.query('UPDATE products SET ? WHERE pid = ?', [product, ProductId], function (err, result) {
-          if (err) throw err;
-          req.session.message={
-            type: 'success',
-            text: 'Product updated successfully'
-          }
-          res.redirect('/admin');
-          resolve(result);
-        });
+      req.db.query('UPDATE products SET ? WHERE pid = ?', [product, ProductId], function (err, result) {
+        if (err) throw err;
+        req.session.message = {
+          type: 'success',
+          text: 'Product updated successfully'
+        }
+        res.redirect('/admin');
+        resolve(result);
+      });
       // }
     });
   }
@@ -166,7 +167,7 @@ router.get('/delete-product/:pid', function (req, res, next) {
         if (err) {
           throw err;
         } else {
-          req.session.message={
+          req.session.message = {
             type: 'success',
             text: 'Product deleted successfully'
           }
@@ -205,10 +206,10 @@ router.get('/user-info', function (req, res, next) {
 
   getUser().then(function (result) {
 
-  res.render('admin/user-info', {
-    admin: true,
-    user: result
-  });
+    res.render('admin/user-info', {
+      admin: true,
+      user: result
+    });
   }).catch(function (err) {
     console.log(err);
   });
@@ -217,12 +218,33 @@ router.get('/user-info', function (req, res, next) {
 
 //order details
 router.get('/order-details', function (req, res, next) {
-  res.render('admin/order-details', {
-    admin: true
+  //display order dertails from database
+  function getOrder() {
+    return new Promise(function (resolve, reject) {
+      req.db.query('SELECT * FROM orders', function (err, result) {
+        if (err) {
+          throw err;
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
+  getOrder().then(function (result) {
+
+
+    res.render('admin/order-details', {
+      admin: true,
+      order: result
+    });
+  }).catch(function (err) {
+    console.log(err);
   });
+
+
 });
 
-router.get('/adminlogout', function(req, res){
+router.get('/adminlogout', function (req, res) {
   res.redirect('/')
 })
 module.exports = router;

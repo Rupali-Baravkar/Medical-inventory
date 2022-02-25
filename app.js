@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // create session
 app.use(session({
   secret: 'secret',
-  cookie: { maxAge: 600000 },
+  cookie: { maxAge: 1000000 },
 }));
 
 

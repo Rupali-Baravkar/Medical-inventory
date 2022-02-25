@@ -94,14 +94,16 @@
   </thead>
   <tbody>
 
+{{#each order as |order|}}
     <tr>
-      <th scope="row"></th>
-      <td></td>
-      <td></td>
-      <td></td>
+      <th scope="row">◾</th>
+      <td>{{this.userid}}</td>
+      <td>{{this.orderid}}</td>
+      
+      {{!-- <td></td> --}}
       
     </tr>
-
+{{/each}}
   </tbody>
 </table>
 
